@@ -1,7 +1,5 @@
 # campus-resource-management-system
 
-# Campus Resource Management System
-
 Web-based application for managing campus resources and reservations.
 
 ## Tech Stack
