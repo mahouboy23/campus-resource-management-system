@@ -1,43 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In / Sign Up</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Sign In Form -->
+        <form id="signInForm">
+            <h2>Sign In</h2>
+            <div class="form-group">
+                <label for="signin-email">Email</label>
+                <input type="email" id="signin-email" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+                <label for="signin-password">Password</label>
+                <input type="password" id="signin-password" placeholder="Enter your password" required />
+            </div>
+            <div class="form-group">
+                <label for="signin-role">Role</label>
+                <select id="signin-role" required>
+                    <option value="" disabled selected>Select role</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit">Log In</button>
+            <a href="#" class="toggle-link" id="showSignUp">Don't have an account? Sign Up</a>
+        </form>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+        <!-- Sign Up Form (hidden by default) -->
+        <form id="signUpForm" style="display:none;">
+            <h2>Sign Up</h2>
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" placeholder="Enter your password" required />
+            </div>
+            <div class="form-group">
+                <label for="signup-password2">Confirm Password</label>
+                <input type="password" id="signup-password2" placeholder="Confirm your password" required />
+            </div>
+            <button type="submit">Create Account</button>
+            <a href="#" class="toggle-link" id="showSignIn">Already have an account? Sign In</a>
+        </form>
+    </div>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <script>
+        const signInForm = document.getElementById("signInForm");
+        const signUpForm = document.getElementById("signUpForm");
+        const showSignUp = document.getElementById("showSignUp");
+        const showSignIn = document.getElementById("showSignIn");
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+        showSignUp.addEventListener("click", (e) => {
+        e.preventDefault();
+        signInForm.style.display = "none";
+        signUpForm.style.display = "block";
+        });
+
+        showSignIn.addEventListener("click", (e) => {
+        e.preventDefault();
+        signUpForm.style.display = "none";
+        signInForm.style.display = "block";
+        });
+    </script>
+</body>
 </html>
