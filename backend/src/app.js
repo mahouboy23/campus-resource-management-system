@@ -38,22 +38,3 @@ app.get("/test-user", async (req, res) => {
 
     res.json(user);
 });
-
-const { MongoClient } = require("mongodb");
-require("dotenv").config();
-
-async function test() {
-  const client = new MongoClient(process.env.MONGO_URI);
-
-  try {
-    await client.connect();
-    console.log("✅ Direct driver connected");
-  } catch (err) {
-    console.error("❌ Direct driver error:");
-    console.error(err);
-  } finally {
-    await client.close();
-  }
-}
-
-test();
