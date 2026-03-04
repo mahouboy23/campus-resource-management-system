@@ -1,40 +1,36 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
-const User = require("./models/User");
 require("dotenv").config();
+
+const connectDB = require("./config/db");
+const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 
+// Connect Database
+connectDB();
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => {
-        console.log("MongoDB connected");
-    })
-    .catch((err) => {
-        console.error("MongoDB connection error:", err);
-    });
-
-// Test route
+// Base Route
 app.get("/", (req, res) => {
-    res.send("Campus Resource Management API running");
+    res.json({ success: true, message: "Campus Resource Management API running" });
 });
+
+// 404 Handler
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "Route not found",
+    });
+});
+
+// Global Error Handler
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
-
-app.get("/test-user", async (req, res) => {
-    const user = await User.create({
-        name: "Test User",
-        email: "test@example.com",
-        password: "123456",
-    });
-
-    res.json(user);
+    console.log(`🚀 Server running on port ${PORT}`);
 });
