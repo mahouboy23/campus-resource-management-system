@@ -16,7 +16,12 @@ function Login() {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
-            window.location.href = "/admin";
+            if (data.user.role === "admin") {
+                window.location.href = "/admin";
+            } else {
+                window.location.href = "/dashboard";
+            }
+
         } catch (err) {
             setError(err.message);
         }
