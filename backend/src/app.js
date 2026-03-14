@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const resourceRoutes = require("./routes/resourceRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 
 // Middleware
 const errorHandler = require("./middleware/errorMiddleware");
@@ -36,6 +37,9 @@ app.use("/api/auth", authRoutes);
 
 // Resource management routes
 app.use("/api/resources", resourceRoutes);
+
+// Booking management routes
+app.use("/api/bookings", bookingRoutes);
 
 
 // --------------------

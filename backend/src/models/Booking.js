@@ -1,32 +1,36 @@
 const mongoose = require("mongoose");
 
-const reservationSchema = new mongoose.Schema(
+const bookingSchema = new mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
         },
+
         resource: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Resource",
             required: true,
         },
-        start_time: {
+
+        startTime: {
             type: Date,
             required: true,
         },
-        end_time: {
+
+        endTime: {
             type: Date,
             required: true,
         },
+
         status: {
             type: String,
             enum: ["pending", "approved", "rejected"],
             default: "pending",
         },
     },
-    { timestamps: true }
+    { timestamps: true } 
 );
 
-module.exports = mongoose.model("Reservation", reservationSchema);
+module.exports = mongoose.model("Booking", bookingSchema);
