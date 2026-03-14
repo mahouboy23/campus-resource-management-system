@@ -3,25 +3,55 @@ const cors = require("cors");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
-const errorHandler = require("./middleware/errorMiddleware");
+
+// Routes
 const authRoutes = require("./routes/authRoutes");
+const resourceRoutes = require("./routes/resourceRoutes");
+
+// Middleware
+const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 
+
+// --------------------
 // Connect Database
+// --------------------
 connectDB();
 
-// Middlewares
+
+// --------------------
+// Global Middlewares
+// --------------------
 app.use(cors());
 app.use(express.json());
+
+
+// --------------------
+// API Routes
+// --------------------
+
+// Authentication routes
 app.use("/api/auth", authRoutes);
 
+// Resource management routes
+app.use("/api/resources", resourceRoutes);
+
+
+// --------------------
 // Base Route
+// --------------------
 app.get("/", (req, res) => {
-    res.json({ success: true, message: "Campus Resource Management API running" });
+    res.json({
+        success: true,
+        message: "Campus Resource Management API running",
+    });
 });
 
+
+// --------------------
 // 404 Handler
+// --------------------
 app.use((req, res) => {
     res.status(404).json({
         success: false,
@@ -29,10 +59,18 @@ app.use((req, res) => {
     });
 });
 
+
+// --------------------
 // Global Error Handler
+// --------------------
 app.use(errorHandler);
 
+
+// --------------------
+// Start Server
+// --------------------
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
