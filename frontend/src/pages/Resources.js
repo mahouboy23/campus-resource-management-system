@@ -49,3 +49,18 @@ function Resources() {
 }
 
 export default Resources;
+ {/* Sidebar */}
+            <div className="sidebar">
+
+                <div className="logo">
+                    <span>Campus Resource Management System</span>
+                </div>
+
+                <nav>
+                    <a className="active">Dashboard</a>
+                    <a href="/resources">Resources</a>
+                    <a href="/bookings">My Bookings</a>
+                    <a className="logout" onClick={handleLogout}>Log Out</a>
+                </nav>
+
+            </div>
