@@ -1,25 +1,34 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import AdminDashboard from "./pages/AdminDashboard";
-import UserDashboard from "./pages/UserDashboard";
-import Resources from "./pages/Resources";
-import Bookings from "./pages/Bookings";
+import React from "react";
+import "./App.css";
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/admin" element={<AdminDashboard />} />
-                <Route path="/dashboard" element={<UserDashboard />} />
-                <Route path="/resources" element={<Resources />} />
-                <Route path="/bookings" element={<Bookings />} />
-            </Routes>
-        </Router>
-    );
+  return React.createElement(
+    "div",
+    { className: "app-container" },
+
+    React.createElement(
+      "div",
+      { className: "card" },
+
+      React.createElement(
+        "h1",
+        { className: "title" },
+        "Campus Resource Management"
+      ),
+
+      React.createElement(
+        "p",
+        { className: "subtitle" },
+        "Manage labs, rooms and equipment بسهولة"
+      ),
+
+      React.createElement(
+        "button",
+        { className: "main-button" },
+        "View Resources"
+      )
+    )
+  );
 }
 
-export default App;//test
+export default App;
