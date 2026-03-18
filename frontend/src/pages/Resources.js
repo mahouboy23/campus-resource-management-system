@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ResourceList from "../components/ResourceList";
 
 function Resources() {
 
   const [resources, setResources] = useState([]);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
 
   useEffect(function() {
 
@@ -38,29 +45,36 @@ function Resources() {
 
   }, []);
 
-  return React.createElement(
-    "div",
-    { style: { padding: "20px" } },
+  return (
+    <div className="dashboard">
 
-    React.createElement("h1", null, "Campus Resources"),
+      {/* Sidebar */}
+      <div className="sidebar">
 
-    React.createElement(ResourceList, { resources: resources })
+        <div className="logo">
+          <span>Campus Resource Management System</span>
+        </div>
+
+        <nav>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link className="active" to="/resources">Resources</Link>
+          <Link to="/bookings">My Bookings</Link>
+          <a className="logout" onClick={handleLogout}>Log Out</a>
+        </nav>
+
+      </div>
+
+      {/* Main Content */}
+      <div className="main" style={{ padding: "20px" }}>
+
+        <h1>Campus Resources</h1>
+
+        <ResourceList resources={resources} />
+
+      </div>
+
+    </div>
   );
 }
 
 export default Resources;
- {/* Sidebar */}
-            <div className="sidebar">
-
-                <div className="logo">
-                    <span>Campus Resource Management System</span>
-                </div>
-
-                <nav>
-                    <a className="active">Dashboard</a>
-                    <a href="/resources">Resources</a>
-                    <a href="/bookings">My Bookings</a>
-                    <a className="logout" onClick={handleLogout}>Log Out</a>
-                </nav>
-
-            </div>
