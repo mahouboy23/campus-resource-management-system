@@ -1,11 +1,11 @@
-import Navbar from "../components/Navbar";
+import AdminNavbar from "../components/AdminNavbar";
 import "../styles/dashboard.css";
 
 function AdminDashboard() {
     return (
         <div className="dashboard-container">
 
-            <Navbar />
+            <AdminNavbar />
 
             <div className="dashboard-content">
 

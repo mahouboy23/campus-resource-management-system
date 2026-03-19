@@ -23,8 +23,8 @@ function Navbar() {
             <div className="navbar-links">
 
                 <Link to="/admin">Dashboard</Link>
-                <Link to="/resources">Resources</Link>
-                <Link to="/bookings">Bookings</Link>
+                <Link to="/admin/resources">Resources</Link>
+                <Link to="/admin/bookings">Bookings</Link>
 
                 {user && (
                     <button onClick={handleLogout} className="logout-btn">

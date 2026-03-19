@@ -1,6 +1,7 @@
 import "../dashboard.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import UserNavbar from "../components/UserNavbar";
 
 function Bookings() {
 
@@ -36,21 +37,7 @@ function Bookings() {
     return (
         <div className="dashboard">
 
-            {/* Sidebar */}
-            <div className="sidebar">
-
-                <div className="logo">
-                    <span>Campus Resource Management System</span>
-                </div>
-
-                <nav>
-                    <a href="/dashboard">Dashboard</a>
-                    <a href="/resources">Resources</a>
-                    <a className="active">My Bookings</a>
-                    <a className="logout" onClick={handleLogout}>Log Out</a>
-                </nav>
-
-            </div>
+            <UserNavbar />
 
             {/* Main Content */}
             <div className="main">

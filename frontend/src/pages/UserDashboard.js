@@ -1,5 +1,6 @@
 import "../dashboard.css";
 import { useNavigate } from "react-router-dom";
+import UserNavbar from "../components/UserNavbar";
 
 function UserDashboard() {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -13,21 +14,7 @@ function UserDashboard() {
     return (
         <div className="dashboard">
 
-            {/* Sidebar */}
-            <div className="sidebar">
-
-                <div className="logo">
-                    <span>Campus Resource Management System</span>
-                </div>
-
-                <nav>
-                    <a className="active">Dashboard</a>
-                    <a href="/resources">Resources</a>
-                    <a href="/bookings">My Bookings</a>
-                    <a className="logout" onClick={handleLogout}>Log Out</a>
-                </nav>
-
-            </div>
+            <UserNavbar />
 
             {/* Main content */}
             <div className="main">

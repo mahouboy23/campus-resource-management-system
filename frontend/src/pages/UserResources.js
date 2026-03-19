@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ResourceList from "../components/ResourceList";
+import UserNavbar from "../components/UserNavbar";
 
 function Resources() {
 
@@ -48,21 +49,7 @@ function Resources() {
   return (
     <div className="dashboard">
 
-      {/* Sidebar */}
-      <div className="sidebar">
-
-        <div className="logo">
-          <span>Campus Resource Management System</span>
-        </div>
-
-        <nav>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link className="active" to="/resources">Resources</Link>
-          <Link to="/bookings">My Bookings</Link>
-          <a className="logout" onClick={handleLogout}>Log Out</a>
-        </nav>
-
-      </div>
+      <UserNavbar />
 
       {/* Main Content */}
       <div className="main" style={{ padding: "20px" }}>
