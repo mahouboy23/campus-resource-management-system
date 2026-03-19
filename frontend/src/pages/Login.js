@@ -29,40 +29,53 @@ function Login() {
 
     return (
         <div className="auth-container">
-            <div className="auth-card">
 
-                <h1>Campus Resource Manager</h1>
-                <h2>Sign In</h2>
+            {/* LEFT SIDE */}
+            <div className="auth-left">
+                <div className="auth-card">
 
-                {error && <p className="error">{error}</p>}
+                    <h1>Login</h1>
+                    <h2>Enter your account details</h2>
 
-                <form onSubmit={handleSubmit}>
+                    {error && <p className="error">{error}</p>}
 
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+                    <form onSubmit={handleSubmit}>
 
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
 
-                    <button type="submit">Sign In</button>
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
 
-                </form>
+                        <button type="submit">Login</button>
 
-                <p>
-                    Don't have an account? <a href="/register">Sign up</a>
-                </p>
+                    </form>
 
+                    <p>
+                        Don't have an account? <a href="/register">Sign up</a>
+                    </p>
+
+                </div>
             </div>
+
+            {/* RIGHT SIDE */}
+            <div className="auth-right">
+                <h1>Welcome Back</h1>
+                <p>
+                    Access and manage campus resources, bookings, and availability with ease.
+                </p>
+            </div>
+
         </div>
     );
 }
