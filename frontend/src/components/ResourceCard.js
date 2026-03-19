@@ -1,36 +1,24 @@
 import React from "react";
 
-function ResourceCard(props) {
-  const resource = props.resource;
+function ResourceCard({ resource, onSelect }) {
+    return (
+        <div className="resource-card">
+            <h3>{resource.icon} {resource.name}</h3>
 
-  return React.createElement(
-    "div",
-    {
-      style: {
-        border: "1px solid #ccc",
-        padding: "15px",
-        margin: "10px",
-        borderRadius: "8px"
-      }
-    },
+            <p>{resource.description}</p>
 
-    React.createElement("h3", null, resource.name),
-    React.createElement("p", null, "Type: " + resource.type),
-    React.createElement("p", null, "Location: " + resource.location),
-    React.createElement("p", null, "Capacity: " + resource.capacity),
+            <span className={resource.availabilityStatus ? "available" : "unavailable"}>
+                {resource.availabilityStatus ? "Available" : "Unavailable"}
+            </span>
 
-    React.createElement(
-      "p",
-      null,
-      "Status: " + (resource.available ? "Available" : "Reserved")
-    ),
-
-    React.createElement(
-      "button",
-      { disabled: !resource.available },
-      "Reserve"
-    )
-  );
+            <button
+                disabled={!resource.availabilityStatus}
+                onClick={() => onSelect(resource)}
+            >
+                Reserve
+            </button>
+        </div>
+    );
 }
 
 export default ResourceCard;

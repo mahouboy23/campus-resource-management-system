@@ -1,41 +1,39 @@
-import { Link, useNavigate } from "react-router-dom";
-import "../styles/navbar.css";
+import { Link, useLocation } from "react-router-dom";
+import "../styles/layout.css";
 
-function Navbar() {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-
-        navigate("/");
-    };
-
-    const user = JSON.parse(localStorage.getItem("user"));
+function AdminNavbar() {
+    const location = useLocation();
 
     return (
-        <nav className="navbar">
+        <div className="sidebar">
 
-            <div className="navbar-logo">
-                Campus Resource Manager
+            <div className="logo">
+                Admin Panel
             </div>
 
-            <div className="navbar-links">
+            <ul className="nav-links">
+                <li className={location.pathname === "/admin" ? "active" : ""}>
+                    <Link to="/admin">Dashboard</Link>
+                </li>
 
-                <Link to="/admin">Dashboard</Link>
-                <Link to="/admin/resources">Resources</Link>
-                <Link to="/admin/bookings">Bookings</Link>
+                <li className={location.pathname === "/admin/resources" ? "active" : ""}>
+                    <Link to="/admin/resources">Resources</Link>
+                </li>
 
-                {user && (
-                    <button onClick={handleLogout} className="logout-btn">
-                        Logout
-                    </button>
-                )}
+                <li className={location.pathname === "/admin/bookings" ? "active" : ""}>
+                    <Link to="/admin/bookings">Bookings</Link>
+                </li>
+            </ul>
 
-            </div>
+            <button className="logout-btn" onClick={() => {
+                localStorage.clear();
+                window.location.href = "/";
+            }}>
+                Logout
+            </button>
 
-        </nav>
+        </div>
     );
 }
 
-export default Navbar;
+export default AdminNavbar;

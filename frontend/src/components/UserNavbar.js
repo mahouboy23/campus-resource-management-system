@@ -1,24 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import "../styles/layout.css";
 
-function UserNavbar() {
+function AdminNavbar() {
+    const location = useLocation();
+
     return (
         <div className="sidebar">
-            <h2>Campus Manager</h2>
 
-            <nav>
-                <Link to="/user">Dashboard</Link>
-                <Link to="/user/resources">Resources</Link>
-                <Link to="/user/bookings">My Bookings</Link>
-            </nav>
+            <div className="logo">
+                Admin Panel
+            </div>
 
-            <button onClick={() => {
+            <ul className="nav-links">
+                <li className={location.pathname === "/admin" ? "active" : ""}>
+                    <Link to="/admin">Dashboard</Link>
+                </li>
+
+                <li className={location.pathname === "/admin/resources" ? "active" : ""}>
+                    <Link to="/admin/resources">Resources</Link>
+                </li>
+
+                <li className={location.pathname === "/admin/bookings" ? "active" : ""}>
+                    <Link to="/admin/bookings">Bookings</Link>
+                </li>
+            </ul>
+
+            <button className="logout-btn" onClick={() => {
                 localStorage.clear();
                 window.location.href = "/";
             }}>
                 Logout
             </button>
+
         </div>
     );
 }
 
-export default UserNavbar;
+export default AdminNavbar;

@@ -1,111 +1,65 @@
-import "../dashboard.css";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import UserNavbar from "../components/UserNavbar";
+import { getMyBookings } from "../services/bookingService";
+import "../styles/booking.css";
 
-function Bookings() {
+function UserBookings() {
+    const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    const navigate = useNavigate();
+    useEffect(() => {
+        fetchBookings();
+    }, []);
 
-    const [booking, setBooking] = useState({
-        resourceType: "",
-        resource: "",
-        date: "",
-        startTime: "",
-        endTime: "",
-        purpose: ""
-    });
-
-    const handleLogout = () => {
-        localStorage.removeItem("user");
-        navigate("/");
+    const fetchBookings = async () => {
+        try {
+            const data = await getMyBookings();
+            setBookings(data);
+        } catch (err) {
+            alert(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleChange = (e) => {
-        setBooking({
-            ...booking,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert("Booking submitted!");
+    const getStatusClass = (status) => {
+        if (status === "approved") return "green";
+        if (status === "rejected") return "red";
+        return "yellow";
     };
 
     return (
-        <div className="dashboard">
-
+        <div className="layout">
             <UserNavbar />
 
-            {/* Main Content */}
-            <div className="main">
+            <div className="content">
+                <h1>My Bookings</h1>
 
-                <div className="welcome">
-                    <h1>Book a Resource</h1>
-                    <p>Select a resource and reserve it.</p>
-                </div>
+                {loading ? (
+                    <p>Loading...</p>
+                ) : bookings.length === 0 ? (
+                    <p>No bookings yet</p>
+                ) : (
+                    <div className="booking-list">
+                        {bookings.map(b => (
+                            <div key={b._id} className="booking-card">
+                                <h3>{b.resource.name}</h3>
 
-                <div className="booking-form">
+                                <p>
+                                    {new Date(b.startTime).toLocaleString()} →
+                                    {new Date(b.endTime).toLocaleString()}
+                                </p>
 
-                    <form onSubmit={handleSubmit}>
-
-                        <label>Resource Type</label>
-                        <select name="resourceType" onChange={handleChange}>
-                            <option>Select Type</option>
-                            <option>Video Equipment</option>
-                            <option>Classroom</option>
-                            <option>Materials</option>
-                        </select>
-
-                        <label>Resource</label>
-                        <input
-                            type="text"
-                            name="resource"
-                            placeholder="Enter resource name"
-                            onChange={handleChange}
-                        />
-
-                        <label>Date</label>
-                        <input
-                            type="date"
-                            name="date"
-                            onChange={handleChange}
-                        />
-
-                        <label>Start Time</label>
-                        <input
-                            type="time"
-                            name="startTime"
-                            onChange={handleChange}
-                        />
-
-                        <label>End Time</label>
-                        <input
-                            type="time"
-                            name="endTime"
-                            onChange={handleChange}
-                        />
-
-                        <label>Purpose</label>
-                        <input
-                            type="text"
-                            name="purpose"
-                            placeholder="Reason for booking"
-                            onChange={handleChange}
-                        />
-
-                        <button type="submit">Submit Booking</button>
-
-                    </form>
-
-                </div>
-
+                                <span className={getStatusClass(b.status)}>
+                                    {b.status}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
-
         </div>
     );
 }
 
-export default Bookings;
+export default UserBookings;
