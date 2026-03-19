@@ -8,20 +8,20 @@ function AdminNavbar() {
         <div className="sidebar">
 
             <div className="logo">
-                Admin Panel
+                    User Panel
             </div>
 
             <ul className="nav-links">
-                <li className={location.pathname === "/admin" ? "active" : ""}>
-                    <Link to="/admin">Dashboard</Link>
+                <li className={location.pathname === "/user" ? "active" : ""}>
+                    <Link to="/user">Dashboard</Link>
                 </li>
 
-                <li className={location.pathname === "/admin/resources" ? "active" : ""}>
-                    <Link to="/admin/resources">Resources</Link>
+                <li className={location.pathname === "/user/resources" ? "active" : ""}>
+                    <Link to="/user/resources">Resources</Link>
                 </li>
 
-                <li className={location.pathname === "/admin/bookings" ? "active" : ""}>
-                    <Link to="/admin/bookings">Bookings</Link>
+                <li className={location.pathname === "/user/bookings" ? "active" : ""}>
+                    <Link to="/user/bookings">Bookings</Link>
                 </li>
             </ul>
 
