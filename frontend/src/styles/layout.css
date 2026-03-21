@@ -5,12 +5,18 @@
 
 /* SIDEBAR */
 .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
     width: 240px;
     background: #0f172a; /* dark blue */
     color: white;
     display: flex;
     flex-direction: column;
     padding: 20px;
+    z-index: 50;
+    overflow-y: auto; /* allow sidebar internal scroll if content too long */
 }
 
 /* LOGO */
@@ -71,5 +77,31 @@
 .content {
     flex: 1;
     padding: 30px;
-    background: #f6f7fb;
+    background: var(--bg);
+    margin-left: 260px; /* leave space for fixed sidebar */
+}
+
+/* Some pages use .main instead of .content; keep consistent offset */
+.main {
+    margin-left: 260px;
+    padding: 24px;
+}
+
+@media (max-width: 800px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        bottom: auto;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 16px;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 16px;
+    }
 }

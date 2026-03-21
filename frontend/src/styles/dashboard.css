@@ -1,5 +1,5 @@
 /* Main container (full page layout) */
-.dashboard-container {
+.dashboard {
     display: flex;
     min-height: 100vh;
     background: #f5f5f5;
