@@ -36,3 +36,47 @@ export const createBooking = async (booking) => {
 
     return data;
 };
+
+export const getAllBookings = async () => {
+    const response = await fetch(`${API_BASE_URL}/bookings`, {
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || "Failed to load bookings");
+    }
+
+    return data;
+};
+
+export const approveBooking = async (id) => {
+    const response = await fetch(`${API_BASE_URL}/bookings/${id}/approve`, {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Failed to approve booking");
+    return data;
+};
+
+export const rejectBooking = async (id) => {
+    const response = await fetch(`${API_BASE_URL}/bookings/${id}/reject`, {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Failed to reject booking");
+    return data;
+};
+
+export default { getMyBookings, createBooking, getAllBookings, approveBooking, rejectBooking };

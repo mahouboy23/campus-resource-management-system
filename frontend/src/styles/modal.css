@@ -89,7 +89,7 @@
     gap: 12px;
 }
 
-/* BUTTONS */
+/* BUTTONS (BOOKING MODAL) */
 .modal-actions {
     display: flex;
     gap: 12px;
@@ -143,3 +143,81 @@
         transform: scale(1);
     }
 }
+
+/* ===================================================== */
+/* 🔥 NEW: CONFIRM MODAL (Admin Approve / Reject) */
+/* ===================================================== */
+
+/* Overlay (same structure but separate class) */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+}
+
+/* Confirm Box */
+.modal-box {
+    background: white;
+    width: 360px;
+    padding: 25px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    animation: pop 0.2s ease;
+}
+
+    /* Title */
+    .modal-box h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #111;
+    }
+
+    /* Message */
+    .modal-box p {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    /* Confirm Modal Buttons */
+    .modal-box .modal-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+/* Primary (Approve) */
+.btn-primary {
+    flex: 1;
+    background: #d4af37;
+    color: #111;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .btn-primary:hover {
+        background: #b8962e;
+        color: white;
+    }
+
+/* Secondary (Cancel) */
+.btn-secondary {
+    flex: 1;
+    background: #f3f4f6;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+    .btn-secondary:hover {
+        background: #e5e7eb;
+    }
