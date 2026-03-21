@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { NotificationProvider } from "./context/NotificationContext";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -13,6 +14,7 @@ import AdminResources from "./pages/AdminResources";
 
 function App() {
     return (
+        <NotificationProvider>
         <Router>
             <Routes>
 
@@ -31,6 +33,7 @@ function App() {
 
             </Routes>
         </Router>
+        </NotificationProvider>
     );
 }
 

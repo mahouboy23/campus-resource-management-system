@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { createBooking } from "../services/bookingService";
+import NotificationContext from "../context/NotificationContext";
 import "../styles/modal.css";
 
 function BookingModal({ resource, onClose, onSuccess }) {
@@ -9,7 +10,9 @@ function BookingModal({ resource, onClose, onSuccess }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const handleSubmit = async (e) => {
+  const { showToast } = useContext(NotificationContext);
+
+  const handleSubmit = async (e) => {
         e.preventDefault();
 
         const startTime = new Date(`${date}T${start}`);
@@ -28,14 +31,16 @@ function BookingModal({ resource, onClose, onSuccess }) {
 
             await createBooking({
                 resource: resource._id,
-                startTime,
-                endTime
+                startTime: startTime.toISOString(),
+                endTime: endTime.toISOString()
             });
 
-            onSuccess();
+            if (onSuccess) onSuccess();
+            showToast("Booking request sent", "success");
             onClose();
         } catch (err) {
             setError(err.message);
+            showToast(err.message || "Failed to create booking", "error");
         } finally {
             setLoading(false);
         }

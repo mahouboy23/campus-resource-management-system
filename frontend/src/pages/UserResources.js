@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import UserNavbar from "../components/UserNavbar";
 import { getAllResources } from "../services/resourceService";
 import ResourceCard from "../components/ResourceCard";
 import BookingModal from "../components/BookingModal";
 import "../styles/resource.css";
+import NotificationContext from "../context/NotificationContext";
 
 function UserResources() {
     const [resources, setResources] = useState([]);
@@ -16,13 +17,15 @@ function UserResources() {
         fetchResources();
     }, []);
 
+    const notification = useContext(NotificationContext);
+
     const fetchResources = async () => {
         try {
             const data = await getAllResources();
             setResources(data);
             setFiltered(data);
         } catch (err) {
-            alert(err.message);
+            notification?.showToast(err.message || "Failed to load resources", "error");
         } finally {
             setLoading(false);
         }

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import UserNavbar from "../components/UserNavbar";
 import { getMyBookings } from "../services/bookingService";
 import "../styles/booking.css";
+import NotificationContext from "../context/NotificationContext";
 
 function UserBookings() {
     const [bookings, setBookings] = useState([]);
@@ -11,12 +12,14 @@ function UserBookings() {
         fetchBookings();
     }, []);
 
+    const notification = useContext(NotificationContext);
+
     const fetchBookings = async () => {
         try {
             const data = await getMyBookings();
             setBookings(data);
         } catch (err) {
-            alert(err.message);
+            notification?.showToast(err.message || "Failed to load bookings", "error");
         } finally {
             setLoading(false);
         }

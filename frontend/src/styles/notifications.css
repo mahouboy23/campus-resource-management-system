@@ -1,0 +1,16 @@
+.nr-toast-container{position:fixed;right:20px;top:20px;display:flex;flex-direction:column;gap:10px;z-index:120}
+.nr-toast{background:rgba(0,0,0,0.8);color:white;padding:10px 14px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer;max-width:320px}
+.nr-toast-info{background:rgba(17,24,39,0.95)}
+.nr-toast-success{background:#22c55e}
+.nr-toast-error{background:#ef4444}
+.nr-toast-warning{background:#f59e0b;color:#111}
+
+.nr-modal-backdrop{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);z-index:200}
+.nr-modal{background:var(--card);padding:20px;border-radius:10px;max-width:420px;width:90%;box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+.nr-modal h3{margin:0 0 8px}
+.nr-modal p{color:var(--muted)}
+.nr-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+.btn-secondary{background:#f4f4f4;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
+.main-button{background:var(--primary);color:#111;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+
+@media(max-width:480px){.nr-toast{max-width:92vw}}
