@@ -44,6 +44,7 @@ function UserResources() {
                 <h1>Resources</h1>
 
                 <input
+                    className="search-bar"
                     placeholder="Search resources..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}

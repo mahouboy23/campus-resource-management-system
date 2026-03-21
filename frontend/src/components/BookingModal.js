@@ -25,6 +25,7 @@ function BookingModal({ resource, onClose, onSuccess }) {
 
         try {
             setLoading(true);
+
             await createBooking({
                 resource: resource._id,
                 startTime,
@@ -43,21 +44,61 @@ function BookingModal({ resource, onClose, onSuccess }) {
     return (
         <div className="modal">
             <div className="modal-content">
-                <h2>Book {resource.name}</h2>
+
+                <div className="modal-header">
+                    <h2>Reserve {resource.name}</h2>
+                    <button className="close-btn" onClick={onClose}>✕</button>
+                </div>
+
+                <div className="resource-info">
+                    <p><strong>Category:</strong> {resource.category}</p>
+                    <p><strong>Description:</strong> {resource.description}</p>
+                </div>
 
                 {error && <p className="error">{error}</p>}
 
-                <form onSubmit={handleSubmit}>
-                    <input type="date" onChange={(e) => setDate(e.target.value)} required />
-                    <input type="time" onChange={(e) => setStart(e.target.value)} required />
-                    <input type="time" onChange={(e) => setEnd(e.target.value)} required />
+                <form className="modal-form" onSubmit={handleSubmit}>
 
-                    <button disabled={loading}>
-                        {loading ? "Booking..." : "Confirm Booking"}
-                    </button>
+                    <input
+                        type="date"
+                        onChange={(e) => setDate(e.target.value)}
+                        required
+                    />
+
+                    <div className="form-row">
+                        <input
+                            type="time"
+                            onChange={(e) => setStart(e.target.value)}
+                            required
+                        />
+
+                        <input
+                            type="time"
+                            onChange={(e) => setEnd(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="modal-actions">
+                        <button
+                            type="button"
+                            className="cancel-btn"
+                            onClick={onClose}
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="confirm-btn"
+                            disabled={loading}
+                        >
+                            {loading ? "Booking..." : "Book Now"}
+                        </button>
+                    </div>
+
                 </form>
 
-                <button onClick={onClose}>Cancel</button>
             </div>
         </div>
     );

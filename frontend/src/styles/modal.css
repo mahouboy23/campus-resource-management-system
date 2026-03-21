@@ -1,16 +1,145 @@
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25); /* lighter overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
+/* MAIN CARD */
 .modal-content {
-    background: white;
-    padding: 25px;
-    margin: 120px auto;
-    width: 350px;
+    background: #ffffff;
+    width: 520px;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    animation: pop 0.2s ease;
+}
+
+/* HEADER */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .modal-header h2 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #111;
+    }
+
+.close-btn {
+    background: #f3f4f6;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .close-btn:hover {
+        background: #e5e7eb;
+    }
+
+/* RESOURCE BOX */
+.resource-info {
+    background: #f9fafb;
+    padding: 16px;
     border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+    .resource-info p {
+        margin: 4px 0;
+        font-size: 14px;
+        color: #555;
+    }
+
+/* FORM */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+    /* INPUTS */
+    .modal-form input {
+        padding: 14px;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+        font-size: 14px;
+        background: #fff;
+        transition: 0.2s;
+    }
+
+        .modal-form input:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.2);
+            outline: none;
+        }
+
+/* TIME ROW */
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+/* BUTTONS */
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.cancel-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+}
+
+    .cancel-btn:hover {
+        background: #f5f5f5;
+    }
+
+.confirm-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #d4af37;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .confirm-btn:hover {
+        background: #b8962e;
+    }
+
+/* ERROR */
+.error {
+    color: #ef4444;
+    font-size: 13px;
+}
+
+/* ANIMATION */
+@keyframes pop {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

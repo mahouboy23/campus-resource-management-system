@@ -43,16 +43,20 @@ function UserBookings() {
                     <div className="booking-list">
                         {bookings.map(b => (
                             <div key={b._id} className="booking-card">
-                                <h3>{b.resource.name}</h3>
 
-                                <p>
-                                    {new Date(b.startTime).toLocaleString()} →
-                                    {new Date(b.endTime).toLocaleString()}
-                                </p>
+                                <div className="booking-info">
+                                    <h3>{b.resource.name}</h3>
 
-                                <span className={getStatusClass(b.status)}>
+                                    <p className="booking-time">
+                                        {new Date(b.startTime).toLocaleString()} →
+                                        {new Date(b.endTime).toLocaleString()}
+                                    </p>
+                                </div>
+
+                                <span className={`status ${b.status}`}>
                                     {b.status}
                                 </span>
+
                             </div>
                         ))}
                     </div>
