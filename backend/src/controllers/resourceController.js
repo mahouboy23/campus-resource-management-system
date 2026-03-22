@@ -22,9 +22,33 @@ exports.createResource = async (req, res) => {
 
 
 // GET ALL RESOURCES
+// Supports optional query params:
+//   ?sortBy=availability  → available first, then unavailable
+//   ?sortBy=category      → alphabetical by category
+//   ?category=room|equipment|device|other  → filter by category
 exports.getAllResources = async (req, res) => {
     try {
-        const resources = await Resource.find().populate("createdBy", "name email");
+        const { sortBy, category } = req.query;
+
+        // Build filter query
+        const filter = {};
+        if (category) {
+            filter.category = category;
+        }
+
+        // Build sort query
+        let sort = { createdAt: -1 }; // default: newest first
+
+        if (sortBy === "availability") {
+            // availabilityStatus: true (1) comes before false (-1) → descending sort
+            sort = { availabilityStatus: -1, name: 1 };
+        } else if (sortBy === "category") {
+            sort = { category: 1, name: 1 };
+        }
+
+        const resources = await Resource.find(filter)
+            .populate("createdBy", "name email")
+            .sort(sort);
 
         res.json(resources);
     } catch (error) {

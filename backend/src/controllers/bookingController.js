@@ -61,11 +61,26 @@ exports.getAllBookings = async (req, res) => {
 
 
 // GET MY BOOKINGS
+// Supports optional query params:
+//   ?filter=upcoming  → only bookings where endTime >= now
+//   ?filter=past      → only bookings where endTime < now
+//   (no filter)       → all bookings
 exports.getMyBookings = async (req, res) => {
     try {
+        const { filter } = req.query;
+        const now = new Date();
 
-        const bookings = await Booking.find({ user: req.user._id })
-            .populate("resource", "name type");
+        let query = { user: req.user._id };
+
+        if (filter === "upcoming") {
+            query.endTime = { $gte: now };
+        } else if (filter === "past") {
+            query.endTime = { $lt: now };
+        }
+
+        const bookings = await Booking.find(query)
+            .populate("resource", "name type icon category")
+            .sort({ startTime: filter === "past" ? -1 : 1 });
 
         res.json(bookings);
 
@@ -99,6 +114,87 @@ exports.getBookingById = async (req, res) => {
         }
 
         res.json(booking);
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+
+// DELETE BOOKING (user can only delete their own pending bookings)
+exports.deleteBooking = async (req, res) => {
+    try {
+        const booking = await Booking.findById(req.params.id);
+
+        if (!booking) {
+            return res.status(404).json({ message: "Booking not found" });
+        }
+
+        // Must be the owner
+        if (booking.user.toString() !== req.user._id.toString()) {
+            return res.status(403).json({
+                message: "Not authorized to delete this booking"
+            });
+        }
+
+        // Can only delete pending bookings
+        if (booking.status !== "pending") {
+            return res.status(400).json({
+                message: "Only pending bookings can be deleted"
+            });
+        }
+
+        await booking.deleteOne();
+
+        res.json({ message: "Booking deleted successfully" });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+
+// GET DASHBOARD STATS (for current user)
+exports.getDashboardStats = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const now = new Date();
+
+        const [totalBookings, upcomingBookings, pendingApproval, recentBookings] =
+            await Promise.all([
+                // Total bookings ever
+                Booking.countDocuments({ user: userId }),
+
+                // Upcoming = endTime in the future (approved or pending)
+                Booking.countDocuments({
+                    user: userId,
+                    endTime: { $gte: now },
+                    status: { $in: ["approved", "pending"] }
+                }),
+
+                // Pending approval
+                Booking.countDocuments({
+                    user: userId,
+                    status: "pending"
+                }),
+
+                // 5 most recent bookings
+                Booking.find({ user: userId })
+                    .populate("resource", "name icon category")
+                    .sort({ createdAt: -1 })
+                    .limit(5)
+            ]);
+
+        res.json({
+            stats: {
+                totalBookings,
+                upcomingBookings,
+                pendingApproval
+            },
+            recentBookings
+        });
 
     } catch (error) {
         res.status(500).json({ message: error.message });

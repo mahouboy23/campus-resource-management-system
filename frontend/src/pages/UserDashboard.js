@@ -1,57 +1,119 @@
-import "../dashboard.css";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserNavbar from "../components/UserNavbar";
+import { getDashboardStats } from "../services/bookingService";
+import NotificationContext from "../context/NotificationContext";
+import "../styles/dashboard.css";
 
 function UserDashboard() {
     const user = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
+    const notification = useContext(NotificationContext);
 
-    const handleLogout = () => {
-        localStorage.removeItem("user");
-        navigate("/"); // goes back to login page
+    const [stats, setStats] = useState({
+        totalBookings: 0,
+        upcomingBookings: 0,
+        pendingApproval: 0
+    });
+    const [recentBookings, setRecentBookings] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchStats();
+    }, []);
+
+    const fetchStats = async () => {
+        try {
+            const data = await getDashboardStats();
+            setStats(data.stats);
+            setRecentBookings(data.recentBookings);
+        } catch (err) {
+            notification?.showToast(err.message || "Failed to load dashboard", "error");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getStatusClass = (status) => {
+        if (status === "approved") return "approved";
+        if (status === "rejected") return "rejected";
+        return "pending";
     };
 
     return (
         <div className="dashboard">
-
             <UserNavbar />
 
-            {/* Main content */}
             <div className="main">
-
                 <div className="welcome">
                     <h1>Welcome back, {user?.name || "User"}!</h1>
                     <p>Explore available campus resources and make bookings easily.</p>
                 </div>
 
-                {/* Resource cards */}
-                <div className="cards">
-
-                    <div className="card">
-                        <h3>Video Equipment</h3>
-                        <p>Check items available</p>
+                {/* Stats Cards */}
+                <div className="dashboard-cards">
+                    <div className="dashboard-card">
+                        <h3>Total Bookings</h3>
+                        <p>{loading ? "—" : stats.totalBookings}</p>
                     </div>
 
-                    <div className="card">
-                        <h3>Classrooms</h3>
-                        <p>Check items available</p>
+                    <div className="dashboard-card">
+                        <h3>Upcoming</h3>
+                        <p>{loading ? "—" : stats.upcomingBookings}</p>
                     </div>
 
-                    <div className="card">
-                        <h3>Materials</h3>
-                        <p>Check items available</p>
+                    <div className="dashboard-card">
+                        <h3>Pending Approval</h3>
+                        <p>{loading ? "—" : stats.pendingApproval}</p>
                     </div>
-
                 </div>
 
-                {/* Recent bookings */}
-                <div className="recent">
-                    <h3>Recent Bookings</h3>
-                    <p>None</p>
-                </div>
+                {/* Recent Bookings */}
+                <div className="recent-section">
+                    <div className="recent-header">
+                        <h3>Recent Bookings</h3>
+                        <button
+                            className="view-all-btn"
+                            onClick={() => navigate("/user/bookings")}
+                        >
+                            View all →
+                        </button>
+                    </div>
 
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : recentBookings.length === 0 ? (
+                        <p className="empty-state">No bookings yet</p>
+                    ) : (
+                        <div className="recent-list">
+                            {recentBookings.map((b) => (
+                                <div
+                                    key={b._id}
+                                    className="recent-booking-item"
+                                    onClick={() => navigate("/user/bookings")}
+                                >
+                                    <div className="recent-booking-info">
+                                        <span className="recent-resource-name">
+                                            {b.resource?.icon} {b.resource?.name}
+                                        </span>
+                                        <span className="recent-booking-time">
+                                            {new Date(b.startTime).toLocaleDateString()} ·{" "}
+                                            {new Date(b.startTime).toLocaleTimeString([], {
+                                                hour: "2-digit",
+                                                minute: "2-digit"
+                                            })}
+                                        </span>
+                                    </div>
+
+                                    <span className={`status ${getStatusClass(b.status)}`}>
+                                        {b.status}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
-
         </div>
     );
 }

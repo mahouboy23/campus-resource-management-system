@@ -6,6 +6,8 @@ const {
     getAllBookings,
     getMyBookings,
     getBookingById,
+    deleteBooking,
+    getDashboardStats,
     approveBooking,
     rejectBooking
 } = require("../controllers/bookingController");
@@ -14,11 +16,17 @@ const { protect } = require("../middleware/authMiddleware");
 const { adminOnly } = require("../middleware/roleMiddleware");
 
 
+// Dashboard stats (user)
+router.get("/dashboard/stats", protect, getDashboardStats);
+
 // Create booking
 router.post("/", protect, createBooking);
 
-// My bookings
+// My bookings (supports ?filter=upcoming|past)
 router.get("/my", protect, getMyBookings);
+
+// Delete a pending booking (user)
+router.delete("/:id", protect, deleteBooking);
 
 // Single booking
 router.get("/:id", protect, getBookingById);

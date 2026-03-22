@@ -1,98 +1,160 @@
-.page-header {
-    margin-bottom: 25px;
-}
-
-    .page-header h1 {
-        font-size: 28px;
-        margin-bottom: 5px;
-    }
-
-    .page-header p {
-        color: #6b7280;
-    }
-
-/* SEARCH */
-.search-bar {
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    width: 300px;
-    margin-bottom: 25px;
-}
-
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-/* CARD */
 .resource-card {
     background: white;
+    border-radius: 12px;
     padding: 20px;
-    border-radius: 14px;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    transition: 0.2s;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease;
 }
 
     .resource-card:hover {
         transform: translateY(-4px);
     }
 
-    /* TITLE */
     .resource-card h3 {
-        font-size: 18px;
-        margin-bottom: 6px;
+        margin: 0;
+        font-size: 16px;
     }
 
-/* CATEGORY */
-.resource-type {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 10px;
-}
+    .resource-card p {
+        font-size: 13px;
+        color: #777;
+        margin: 0;
+    }
 
-/* DESCRIPTION */
-.resource-card p {
-    font-size: 14px;
-    color: #555;
-}
+    .resource-card button {
+        margin-top: auto;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        background: var(--primary, #d4af37);
+        color: #111;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
 
-/* STATUS */
-.status-pill {
+        .resource-card button:hover:not(:disabled) {
+            background: #b8962e;
+            color: white;
+        }
+
+        .resource-card button:disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+/* Availability badges */
+.available {
     display: inline-block;
-    margin-top: 12px;
-    padding: 6px 12px;
+    padding: 3px 10px;
     border-radius: 20px;
     font-size: 12px;
-    font-weight: 500;
-}
-
-.available {
+    font-weight: 600;
     background: #dcfce7;
     color: #16a34a;
 }
 
 .unavailable {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
     background: #fee2e2;
     color: #dc2626;
 }
 
-/* BUTTON */
-.resource-card button {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 10px;
-    background: #d4af37;
-    color: white;
-    width: 100%;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+/* =====================
+   CONTROLS ROW
+   ===================== */
+.resources-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 24px;
 }
 
-    .resource-card button:hover {
-        background: #b8962e;
+.search-bar {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+    .search-bar:focus {
+        border-color: var(--primary, #d4af37);
     }
+
+.sort-select {
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    color: #444;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+    .sort-select:focus {
+        border-color: var(--primary, #d4af37);
+    }
+
+/* =====================
+   CATEGORY FILTER BUTTONS
+   ===================== */
+.category-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1.5px solid #e5e7eb;
+    background: white;
+    color: #555;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .category-btn:hover {
+        border-color: var(--primary, #d4af37);
+        color: #333;
+    }
+
+    .category-btn.active {
+        background: var(--primary, #d4af37);
+        border-color: var(--primary, #d4af37);
+        color: #111;
+        font-weight: 600;
+    }
+
+/* =====================
+   GRID
+   ===================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.empty-state {
+    color: #9ca3af;
+    font-style: italic;
+    text-align: center;
+    padding: 40px 0;
+}

@@ -39,7 +39,83 @@
     gap: 10px;
 }
 
-/* STATUS */
+/* =====================
+   TABS
+   ===================== */
+.booking-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.tab-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid #e5e7eb;
+    background: white;
+    color: #555;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+    .tab-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    .tab-btn.active {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: #111;
+        font-weight: 600;
+    }
+
+.tab-count {
+    background: rgba(0,0,0,0.12);
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 12px;
+}
+
+.tab-btn.active .tab-count {
+    background: rgba(0,0,0,0.15);
+}
+
+/* =====================
+   PAST BOOKINGS
+   ===================== */
+.past-header {
+    margin-bottom: 16px;
+}
+
+.toggle-past-btn {
+    background: none;
+    border: 1px solid #d1d5db;
+    padding: 7px 16px;
+    border-radius: 8px;
+    color: #555;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+    .toggle-past-btn:hover {
+        background: #f3f4f6;
+        color: #333;
+    }
+
+.past-bookings .booking-card {
+    opacity: 0.75;
+}
+
+/* =====================
+   STATUS
+   ===================== */
 .status {
     padding: 6px 12px;
     border-radius: 20px;
@@ -62,7 +138,9 @@
         color: #dc2626;
     }
 
-/* BUTTONS */
+/* =====================
+   BUTTONS
+   ===================== */
 .admin-actions {
     display: flex;
     gap: 8px;
@@ -95,3 +173,30 @@
     .btn-reject:hover {
         background: #c02626;
     }
+
+.btn-delete {
+    background: #fff1f1;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .btn-delete:hover {
+        background: #fee2e2;
+        border-color: #dc2626;
+    }
+
+/* =====================
+   EMPTY STATE
+   ===================== */
+.empty-state {
+    color: #9ca3af;
+    font-style: italic;
+    text-align: center;
+    padding: 40px 0;
+}
