@@ -24,7 +24,7 @@ function AdminNavbar() {
                     <Link to="/admin/bookings">Bookings</Link>
                 </li>
                 <li className={location.pathname === "/admin/users" ? "active" : ""}>
-                    <Link to="/admin/users">user management</Link>
+                    <Link to="/admin/users">User management</Link>
                 </li>
             </ul>
 

@@ -404,3 +404,29 @@
     .floating-add-btn:hover {
         background: #b8962e;
     }
+
+
+.emoji-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.emoji-btn {
+    font-size: 22px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+}
+
+.emoji-picker {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border-radius: 12px;
+}
