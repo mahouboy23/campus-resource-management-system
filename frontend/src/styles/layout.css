@@ -1,107 +1,234 @@
+/* ================================================================
+   layout.css — sidebar + page layout
+   ================================================================ */
+
 .layout {
     display: flex;
     min-height: 100vh;
+    background: #f4f6f9;
 }
 
-/* SIDEBAR */
+/* ── Sidebar shell ──────────────────────────────────────────────── */
 .sidebar {
     position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
-    width: 240px;
-    background: #0f172a; /* dark blue */
+    width: 248px;
+    background: #0f172a;
     color: white;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     z-index: 50;
-    overflow-y: auto; /* allow sidebar internal scroll if content too long */
+    overflow-y: auto;
+    /* Subtle inner shadow on the right edge */
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.25);
 }
 
-/* LOGO */
-.logo {
-    font-size: 20px;
-    font-weight: bold;
+/* ── Brand / logo ───────────────────────────────────────────────── */
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+}
+
+.brand-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.brand-name {
+    font-size: 18px;
+    font-weight: 700;
     color: #d4af37;
-    margin-bottom: 30px;
+    letter-spacing: 0.3px;
 }
 
-/* NAV LINKS */
+/* ── Navigation ─────────────────────────────────────────────────── */
+.sidebar-nav {
+    padding: 20px 12px 8px;
+    flex: 1;
+}
+
+.nav-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255, 255, 255, 0.28);
+    padding: 0 8px;
+    margin-bottom: 8px;
+}
+
 .nav-links {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
-    .nav-links li {
-        margin-bottom: 10px;
+    .nav-links li a {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 14px;
+        font-weight: 500;
+        transition: background 0.15s, color 0.15s;
+        text-decoration: none;
     }
 
-        .nav-links li a {
-            display: block;
-            padding: 10px 12px;
-            border-radius: 8px;
-            color: #e5e7eb;
-            transition: 0.2s;
+        .nav-links li a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
         }
 
-            /* HOVER */
-            .nav-links li a:hover {
-                background: rgba(255,255,255,0.08);
-            }
+    .nav-links li.active a {
+        background: rgba(212, 175, 55, 0.18);
+        color: #d4af37;
+        font-weight: 600;
+    }
 
-        /* ACTIVE */
-        .nav-links li.active a {
-            background: #d4af37;
-            color: black;
-            font-weight: bold;
-        }
+.nav-icon {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
 
-/* LOGOUT */
+/* ── Footer / account section ───────────────────────────────────── */
+.sidebar-footer {
+    padding: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.account-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.account-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37, #b8962e);
+    color: #111;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+}
+
+.admin-avatar {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+}
+
+.account-info {
+    overflow: hidden;
+    min-width: 0;
+}
+
+.account-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #f1f5f9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.account-email {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 2px 0 0;
+}
+
+/* ── Logout button ──────────────────────────────────────────────── */
 .logout-btn {
-    margin-top: auto;
-    padding: 10px;
-    border-radius: 8px;
+    width: 100%;
+    padding: 9px;
+    border-radius: 9px;
     background: transparent;
     color: #f87171;
-    border: 1px solid #f87171;
-    transition: 0.2s;
+    border: 1px solid rgba(248, 113, 113, 0.4);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
 }
 
     .logout-btn:hover {
-        background: #f87171;
-        color: white;
+        background: rgba(248, 113, 113, 0.12);
+        border-color: #f87171;
     }
 
-/* CONTENT */
+/* ── Content area ───────────────────────────────────────────────── */
 .content {
     flex: 1;
-    padding: 30px;
-    background: var(--bg);
-    margin-left: 260px; /* leave space for fixed sidebar */
+    padding: 36px 40px;
+    background: #f4f6f9;
+    margin-left: 248px;
+    min-width: 0;
 }
 
-/* Some pages use .main instead of .content; keep consistent offset */
+    .content h1 {
+        font-size: 26px;
+        color: #1a1a2e;
+        margin-bottom: 4px;
+    }
+
+/* Pages using .main (dashboards) */
 .main {
-    margin-left: 260px;
-    padding: 24px;
+    margin-left: 248px;
+    padding: 40px;
+    flex: 1;
+    width: calc(100% - 248px);
+    box-sizing: border-box;
+    min-width: 0;
 }
 
+/* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 800px) {
     .sidebar {
         position: relative;
         width: 100%;
         height: auto;
         bottom: auto;
+        box-shadow: none;
     }
 
     .content {
         margin-left: 0;
-        padding: 16px;
+        padding: 20px;
     }
 
     .main {
         margin-left: 0;
-        padding: 16px;
+        width: 100%;
+        padding: 20px;
     }
 }

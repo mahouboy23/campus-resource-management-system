@@ -1,76 +1,8 @@
-.resource-card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: transform 0.2s ease;
-}
+/* ================================================================
+   resource.css
+   ================================================================ */
 
-    .resource-card:hover {
-        transform: translateY(-4px);
-    }
-
-    .resource-card h3 {
-        margin: 0;
-        font-size: 16px;
-    }
-
-    .resource-card p {
-        font-size: 13px;
-        color: #777;
-        margin: 0;
-    }
-
-    .resource-card button {
-        margin-top: auto;
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: none;
-        background: var(--primary, #d4af37);
-        color: #111;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s ease;
-    }
-
-        .resource-card button:hover:not(:disabled) {
-            background: #b8962e;
-            color: white;
-        }
-
-        .resource-card button:disabled {
-            background: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
-        }
-
-/* Availability badges */
-.available {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    background: #dcfce7;
-    color: #16a34a;
-}
-
-.unavailable {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-/* =====================
-   CONTROLS ROW
-   ===================== */
+/* ── Controls row ───────────────────────────────────────────────── */
 .resources-controls {
     display: flex;
     flex-wrap: wrap;
@@ -83,22 +15,26 @@
     flex: 1;
     min-width: 200px;
     padding: 10px 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 9px;
     font-size: 14px;
+    font-family: inherit;
     outline: none;
-    transition: border-color 0.2s;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
     .search-bar:focus {
-        border-color: var(--primary, #d4af37);
+        border-color: #d4af37;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.14);
     }
 
 .sort-select {
     padding: 10px 14px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 9px;
     font-size: 14px;
+    font-family: inherit;
     background: white;
     color: #444;
     cursor: pointer;
@@ -107,12 +43,10 @@
 }
 
     .sort-select:focus {
-        border-color: var(--primary, #d4af37);
+        border-color: #d4af37;
     }
 
-/* =====================
-   CATEGORY FILTER BUTTONS
-   ===================== */
+/* ── Category filter pills ──────────────────────────────────────── */
 .category-filters {
     display: flex;
     gap: 8px;
@@ -132,167 +66,279 @@
 }
 
     .category-btn:hover {
-        border-color: var(--primary, #d4af37);
+        border-color: #d4af37;
         color: #333;
     }
 
     .category-btn.active {
-        background: var(--primary, #d4af37);
-        border-color: var(--primary, #d4af37);
+        background: #d4af37;
+        border-color: #d4af37;
         color: #111;
         font-weight: 600;
     }
 
-/* =====================
-   GRID
-   ===================== */
+/* ── Grid ───────────────────────────────────────────────────────── */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
 }
 
-.empty-state {
-    color: #9ca3af;
-    font-style: italic;
-    text-align: center;
-    padding: 40px 0;
-}
-
-/* =====================
-   RESOURCE CARD
-   ===================== */
+/* ── Resource card ──────────────────────────────────────────────── */
 .resource-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 20px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    transition: transform 0.2s ease;
+    gap: 8px;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
     .resource-card:hover {
-        transform: translateY(-4px);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
-    .resource-card h3 {
-        margin: 0;
-        font-size: 16px;
-    }
+/* Top row: icon + availability badge */
+.resource-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
 
-    .resource-card p {
-        font-size: 13px;
-        color: #777;
-        margin: 0;
-    }
+.resource-icon-display {
+    font-size: 28px;
+    line-height: 1;
+}
 
-/* Buttons inside card */
+.resource-card h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.resource-card p {
+    font-size: 13px;
+    color: #9ca3af;
+    margin: 0;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.resource-category-tag {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+    width: fit-content;
+}
+
+/* Availability badges */
+.available {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.unavailable {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* Card action buttons */
 .card-actions {
     display: flex;
-    gap: 12px; /* space between buttons */
-    margin-top: 10px;
+    gap: 8px;
+    margin-top: 6px;
 }
 
-    .card-actions button {
-        padding: 6px 12px;
-        border-radius: 8px;
-        border: none;
-        background: var(--primary, #d4af37);
-        color: #111;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s ease;
-    }
-
-        .card-actions button:hover:not(:disabled) {
-            background: #b8962e;
-            color: white;
-        }
-
-    .card-actions .btn-delete {
-        background: #fee2e2;
-        color: #dc2626;
-    }
-
-        .card-actions .btn-delete:hover {
-            background: #fca5a5;
-            color: white;
-        }
-
-/* Availability badges */
-.available {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    background: #dcfce7;
-    color: #16a34a;
-}
-
-.unavailable {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-/* =====================
-   CONTROLS ROW
-   ===================== */
-.resources-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.search-bar {
-    flex: 1;
-    min-width: 200px;
-    padding: 10px 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-    .search-bar:focus {
-        border-color: var(--primary, #d4af37);
-    }
-
-.sort-select {
-    padding: 10px 14px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 14px;
+.btn-toggle {
+    padding: 6px 12px;
+    border-radius: 7px;
+    border: 1.5px solid #e5e7eb;
     background: white;
-    color: #444;
+    color: #374151;
+    font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
-    outline: none;
-    transition: border-color 0.2s;
+    transition: all 0.15s;
 }
 
-    .sort-select:focus {
-        border-color: var(--primary, #d4af37);
+    .btn-toggle:hover {
+        border-color: #d4af37;
+        color: #d4af37;
     }
 
-/* Category filter buttons */
-.category-filters {
+.btn-edit {
+    padding: 6px 12px;
+    border-radius: 7px;
+    border: none;
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+    .btn-edit:hover {
+        background: #e5e7eb;
+    }
+
+.btn-delete {
+    padding: 6px 12px;
+    border-radius: 7px;
+    border: 1.5px solid #fca5a5;
+    background: #fff1f1;
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+    .btn-delete:hover {
+        background: #fee2e2;
+        border-color: #dc2626;
+    }
+
+/* Reserve button (UserResources) */
+.resource-card > button {
+    margin-top: auto;
+    padding: 9px 16px;
+    border-radius: 9px;
+    border: none;
+    background: #d4af37;
+    color: #111;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .resource-card > button:hover:not(:disabled) {
+        background: #b8962e;
+        color: white;
+    }
+
+    .resource-card > button:disabled {
+        background: #e5e7eb;
+        color: #9ca3af;
+        cursor: not-allowed;
+    }
+
+/* ── Resource Add/Edit Modal ────────────────────────────────────── */
+.resource-modal {
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    width: 500px;
+    max-width: 96vw;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+    animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.resource-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+    .resource-modal-header h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a2e;
+    }
+
+/* Preview row: big icon + name input side by side */
+.resource-modal-preview {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.icon-preview {
+    font-size: 48px;
+    line-height: 1;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9fafb;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 14px;
+    flex-shrink: 0;
+}
+
+.resource-modal-name-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.resource-modal-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 9px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+    .resource-modal-input:focus {
+        border-color: #d4af37;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+
+/* Category pills inside modal */
+.resource-cat-pills {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.category-btn {
-    padding: 7px 16px;
+.resource-cat-pill {
+    padding: 6px 16px;
     border-radius: 20px;
     border: 1.5px solid #e5e7eb;
     background: white;
@@ -300,134 +346,106 @@
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s;
 }
 
-    .category-btn:hover {
-        border-color: var(--primary, #d4af37);
-        color: #333;
+    .resource-cat-pill:hover {
+        border-color: #d4af37;
     }
 
-    .category-btn.active {
-        background: var(--primary, #d4af37);
-        border-color: var(--primary, #d4af37);
+    .resource-cat-pill.active {
+        background: #d4af37;
+        border-color: #d4af37;
         color: #111;
-        font-weight: 600;
+        font-weight: 700;
     }
 
-/* Grid layout */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
+/* ── Emoji grid ─────────────────────────────────────────────────── */
+.emoji-grid-panel {
+    background: #f9fafb;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
 }
 
+.emoji-grid-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 10px;
+}
+
+.emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+}
+
+.emoji-grid-item {
+    aspect-ratio: 1;
+    border: none;
+    background: none;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.12s;
+}
+
+    .emoji-grid-item:hover {
+        background: #e5e7eb;
+    }
+
+    .emoji-grid-item.active {
+        background: rgba(212, 175, 55, 0.25);
+        outline: 2px solid #d4af37;
+    }
+
+/* Modal action row */
+.resource-modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+/* ── Show more (past bookings) ──────────────────────────────────── */
+.show-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.show-more-btn {
+    background: white;
+    border: 1.5px solid #e5e7eb;
+    padding: 9px 24px;
+    border-radius: 20px;
+    color: #555;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+    .show-more-btn:hover {
+        border-color: #d4af37;
+        color: #d4af37;
+    }
+
+/* ── Empty / loading states ─────────────────────────────────────── */
 .empty-state {
     color: #9ca3af;
     font-style: italic;
     text-align: center;
-    padding: 40px 0;
+    padding: 48px 0;
 }
 
-/* =====================
-   MODAL
-   ===================== */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background: white;
-    padding: 24px;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-    .modal-content input,
-    .modal-content select {
-        padding: 10px;
-        font-size: 14px;
-        border-radius: 8px;
-        border: 1px solid #e5e7eb;
-        outline: none;
-    }
-
-        .modal-content input:focus,
-        .modal-content select:focus {
-            border-color: var(--primary, #d4af37);
-        }
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 12px;
-}
-
-/* =====================
-   FLOATING ADD BUTTON
-   ===================== */
-.floating-add-btn {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: none;
-    background: var(--primary, #d4af37);
-    color: #111;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    transition: background 0.2s ease;
-    z-index: 100;
-}
-
-    .floating-add-btn:hover {
-        background: #b8962e;
-    }
-
-
-.emoji-input {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-}
-
-.emoji-btn {
-    font-size: 22px;
-    padding: 8px 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    background: white;
-    cursor: pointer;
-}
-
-
-.emoji-picker {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    border-radius: 12px;
+.loading-text {
+    color: #9ca3af;
+    padding: 20px 0;
 }

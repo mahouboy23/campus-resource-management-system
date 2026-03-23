@@ -5,18 +5,18 @@ import ConfirmModal from "../components/ConfirmModal";
 import "../styles/booking.css";
 import NotificationContext from "../context/NotificationContext";
 
+const PAST_PAGE_SIZE = 3;
+
 function UserBookings() {
     const [allBookings, setAllBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState("upcoming");
-    const [showPast, setShowPast] = useState(true);
+    const [pastVisible, setPastVisible] = useState(PAST_PAGE_SIZE);
     const [bookingToDelete, setBookingToDelete] = useState(null);
 
     const notification = useContext(NotificationContext);
 
-    useEffect(() => {
-        fetchBookings();
-    }, []);
+    useEffect(() => { fetchBookings(); }, []);
 
     const fetchBookings = async () => {
         try {
@@ -44,20 +44,11 @@ function UserBookings() {
     };
 
     const now = new Date();
+    const upcomingBookings = allBookings.filter((b) => new Date(b.endTime) >= now);
+    const pastBookings = allBookings.filter((b) => new Date(b.endTime) < now);
 
-    const upcomingBookings = allBookings.filter(
-        (b) => new Date(b.endTime) >= now
-    );
-
-    const pastBookings = allBookings.filter(
-        (b) => new Date(b.endTime) < now
-    );
-
-    const getStatusClass = (status) => {
-        if (status === "approved") return "approved";
-        if (status === "rejected") return "rejected";
-        return "pending";
-    };
+    const statusClass = (s) =>
+        s === "approved" ? "approved" : s === "rejected" ? "rejected" : "pending";
 
     const renderBookingCard = (b) => (
         <div key={b._id} className="booking-card">
@@ -68,17 +59,10 @@ function UserBookings() {
                     {new Date(b.endTime).toLocaleString()}
                 </p>
             </div>
-
             <div className="booking-right">
-                <span className={`status ${getStatusClass(b.status)}`}>
-                    {b.status}
-                </span>
-
+                <span className={`status ${statusClass(b.status)}`}>{b.status}</span>
                 {b.status === "pending" && (
-                    <button
-                        className="btn-delete"
-                        onClick={() => setBookingToDelete(b)}
-                    >
+                    <button className="btn-delete" onClick={() => setBookingToDelete(b)}>
                         Cancel
                     </button>
                 )}
@@ -104,10 +88,9 @@ function UserBookings() {
                             <span className="tab-count">{upcomingBookings.length}</span>
                         )}
                     </button>
-
                     <button
                         className={`tab-btn ${activeTab === "past" ? "active" : ""}`}
-                        onClick={() => setActiveTab("past")}
+                        onClick={() => { setActiveTab("past"); setPastVisible(PAST_PAGE_SIZE); }}
                     >
                         Past
                         {pastBookings.length > 0 && (
@@ -117,10 +100,10 @@ function UserBookings() {
                 </div>
 
                 {loading ? (
-                    <p>Loading...</p>
+                    <p className="loading-text">Loading…</p>
                 ) : (
                     <>
-                        {/* Upcoming bookings */}
+                        {/* Upcoming */}
                         {activeTab === "upcoming" && (
                             <div className="booking-list">
                                 {upcomingBookings.length === 0 ? (
@@ -131,35 +114,35 @@ function UserBookings() {
                             </div>
                         )}
 
-                        {/* Past bookings */}
+                        {/* Past — paginated with "Show more" */}
                         {activeTab === "past" && (
-                            <div>
-                                <div className="past-header">
-                                    <button
-                                        className="toggle-past-btn"
-                                        onClick={() => setShowPast((prev) => !prev)}
-                                    >
-                                        {showPast ? "Hide" : "Show"} past bookings
-                                        ({pastBookings.length})
-                                    </button>
-                                </div>
+                            <>
+                                {pastBookings.length === 0 ? (
+                                    <p className="empty-state">No past bookings</p>
+                                ) : (
+                                    <>
+                                        <div className="booking-list past-bookings">
+                                            {pastBookings.slice(0, pastVisible).map(renderBookingCard)}
+                                        </div>
 
-                                {showPast && (
-                                    <div className="booking-list past-bookings">
-                                        {pastBookings.length === 0 ? (
-                                            <p className="empty-state">No past bookings</p>
-                                        ) : (
-                                            pastBookings.map(renderBookingCard)
+                                        {pastVisible < pastBookings.length && (
+                                            <div className="show-more-wrap">
+                                                <button
+                                                    className="show-more-btn"
+                                                    onClick={() => setPastVisible((v) => v + PAST_PAGE_SIZE)}
+                                                >
+                                                    Show more ({pastBookings.length - pastVisible} remaining)
+                                                </button>
+                                            </div>
                                         )}
-                                    </div>
+                                    </>
                                 )}
-                            </div>
+                            </>
                         )}
                     </>
                 )}
             </div>
 
-            {/* Confirm delete modal — isOpen is required by ConfirmModal */}
             <ConfirmModal
                 isOpen={!!bookingToDelete}
                 title="Cancel Booking"
