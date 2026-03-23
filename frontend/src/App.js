@@ -11,6 +11,7 @@ import UserResources from "./pages/UserResources";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBookings from "./pages/AdminBookings";
 import AdminResources from "./pages/AdminResources";
+import AdminUsers from "./pages/AdminUsers";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/admin/bookings" element={<AdminBookings />} />
                 <Route path="/admin/resources" element={<AdminResources />} />
+                <Route path="/admin/users" element={<AdminUsers />} />
 
             </Routes>
         </Router>

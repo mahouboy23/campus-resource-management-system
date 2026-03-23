@@ -23,6 +23,9 @@ function AdminNavbar() {
                 <li className={location.pathname === "/admin/bookings" ? "active" : ""}>
                     <Link to="/admin/bookings">Bookings</Link>
                 </li>
+                <li className={location.pathname === "/admin/users" ? "active" : ""}>
+                    <Link to="/admin/users">user management</Link>
+                </li>
             </ul>
 
             <button className="logout-btn" onClick={() => {
